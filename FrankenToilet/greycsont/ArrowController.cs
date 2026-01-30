@@ -6,31 +6,8 @@ using FrankenToilet.Core;
 
 namespace FrankenToilet.greycsont;
 
-[EntryPoint]
 public static class ArrowController
 {
-    const string noteSkinPath = "FrankenToilet.greycsont.assetstealfromrhythmgame.bundle";
-    
-    public static AssetBundle assetBundle;
-
-    public static Sprite[] arrowSprites;
-    
-    public static Dictionary<string, AudioClip> audioCaches = new Dictionary<string, AudioClip>();
-    
-    [EntryPoint]
-    public static void Initialize()
-    {
-        assetBundle = AssetBundleHelper.LoadAssetBundle(noteSkinPath);
-        arrowSprites = assetBundle.LoadAssetWithSubAssets<Sprite>("arrow");
-        
-        var clips = assetBundle.LoadAllAssets<AudioClip>();
-        foreach (var clip in clips)
-            audioCaches[clip.name] = clip;
-        LogHelper.LogDebug($"[greycsont] audioClip count: {audioCaches.Count}");
-        
-        foreach (var kvp in audioCaches)
-            LogHelper.LogDebug($"[greycsont] key: {kvp.Key}");
-    }
 
     public static void GenerateImage(float timeInSeconds)
     {
@@ -51,7 +28,7 @@ public static class ArrowController
         
         imgObj.transform.SetAsLastSibling();
         
-        var clip = audioCaches["SecretCommand_" + DirectionRandomizer.randomDirection];
+        var clip = AssetBundleController.audioCaches["SecretCommand_" + DirectionRandomizer.randomDirection];
     
         if (clip != null)
         {
@@ -63,11 +40,11 @@ public static class ArrowController
         }
         
         var img = imgObj.AddComponent<Image>();
-        img.sprite = arrowSprites[Random.Range(0, arrowSprites.Length)];
+        img.sprite = AssetBundleController.arrowSprites[Random.Range(0, AssetBundleController.arrowSprites.Length)];
         img.SetNativeSize();
         
         var color = img.color;
-        color.a = 0.2f;
+        color.a = 0.7f;
         img.color = color;
         
         var rect = imgObj.GetComponent<RectTransform>();
