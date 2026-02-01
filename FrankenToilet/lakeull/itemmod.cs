@@ -40,13 +40,14 @@ namespace itemMod
         private static GameObject airheadsIcon;
         private static GameObject gatoradeIcon;
         private static GameObject orbitIcon;
+        private static GameObject donutIcon;
         public static bool canUseItem = false;
         private static List<GameObject> abilityIcons = new List<GameObject>();
         private static int abilityIndex;
         private static int oldRandomGen = 2;
         public static GameObject iglooObject;
         public static GameObject orbitObject;
-        
+        public static GameObject donutObject;
 
         /*
          * Todo:
@@ -90,6 +91,10 @@ namespace itemMod
                 if ($"{gameObject.name}" == "orbit")
                 {
                     orbitObject = gameObject;
+                }
+                if ($"{gameObject.name}" == "donut")
+                {
+                    donutObject = gameObject;
                 }
                 else
                 {
@@ -153,6 +158,11 @@ namespace itemMod
             orbitIcon = GameObject.Find(itemCanvas.name + "/" + itemBox.name + "/orbiticon");
             orbitIcon.SetActive(false);
             abilityIcons.Add(orbitIcon);
+
+            // seventh ability, orbicular: index 5
+            donutIcon = GameObject.Find(itemCanvas.name + "/" + itemBox.name + "/donuticon");
+            donutIcon.SetActive(false);
+            abilityIcons.Add(donutIcon);
 
             foreach (GameObject ability in abilityIcons)
             {
@@ -271,6 +281,16 @@ namespace itemMod
                 orbitObjectInstance.AddComponent<SphereForce>().strength = 4000;
                 orbitObjectInstance.AddComponent<AlwaysLookAtCamera>();
                 orbitObjectInstance.transform.position = NewMovement.Instance.transform.position;
+            }
+            // ability 6, mmmmm... donut
+            else if (abilityIndex == 6)
+            {
+                GameObject donutInstance = GameObject.Instantiate(donutObject);
+                GameObject donutInstanceCollider = donutInstance.transform.Find("donutcollider").gameObject;
+                donutInstanceCollider.AddComponent<JumpPad>();
+                donutInstanceCollider.GetComponent<JumpPad>().force = 80;
+                donutInstanceCollider.GetComponent<JumpPad>().aud = donutInstance.transform.Find("donutsound").GetComponent<AudioSource>();
+                donutInstance.transform.position = new Vector3(NewMovement.Instance.transform.position.x, NewMovement.Instance.transform.position.y - 2, NewMovement.Instance.transform.position.z);
             }
 
             // plays the use sound effect
