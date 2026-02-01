@@ -38,12 +38,7 @@ namespace FrankenToilet.doomahreal.patches
             for (int i = trackedEids.Count - 1; i >= 0; i--)
             {
                 var eid = trackedEids[i];
-                if (eid == null)
-                {
-                    trackedEids.RemoveAt(i);
-                    continue;
-                }
-                if (eid.dead)
+                if (eid == null || eid.dead)
                 {
                     trackedEids.RemoveAt(i);
                     continue;
