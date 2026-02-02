@@ -1,11 +1,11 @@
-﻿using FrankenToilet.Core;
+﻿namespace FrankenToilet.Bryan;
+
+using FrankenToilet.Core;
 using System.IO;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
-
-namespace FrankenToilet.Bryan;
 
 /// <summary> Die </summary>
 public static class BundleLoader
@@ -13,8 +13,8 @@ public static class BundleLoader
     /// <summary> Spooky scary asset bundle oooooo </summary>
     public static AssetBundle assetBundle;
 
-    /// <summary> Amercia. </summary>
-    public static VideoClip Amercia;
+    /// <summary> videos </summary>
+    public static VideoClip Amercia, SantaClaus, Ultrakill;
 
     /// <summary> Comic sands. </summary>
     public static TMP_FontAsset ComicSands;
@@ -26,19 +26,26 @@ public static class BundleLoader
     public static AudioClip MinosDime;
 
     /// <summary> silly </summary>
-    public static Sprite UlraKil, ulakill;
+    public static Sprite UlraKil, ulakill, Flash;
+
+    /// <summary> the budget was dropped for maurice </summary>
+    public static GameObject MauriceBad;
 
     /// <summary> Load the asset bundle. </summary>
     public static void Load()
     {
         GrabEmbeddedBundle();
-
+        
         Amercia = assetBundle.LoadAsset<VideoClip>("assets/amercia.mp4");
+        SantaClaus = assetBundle.LoadAsset<VideoClip>("assets/santaclaus.mp4");
+        Ultrakill = assetBundle.LoadAsset<VideoClip>("assets/ultrakill.mp4");
         ComicSands = assetBundle.LoadAsset<TMP_FontAsset>("assets/comicsans.asset");
         ComicSandsLegacy = assetBundle.LoadAsset<Font>("assets/comicsanslegacy.ttf");
         MinosDime = assetBundle.LoadAsset<AudioClip>("assets/minos prime.wav");
         UlraKil = assetBundle.LoadAsset<Sprite>("assets/ultrakill wingdings.png");
         ulakill = assetBundle.LoadAsset<Sprite>("assets/title.png");
+        Flash = assetBundle.LoadAsset<Sprite>("assets/flash.jpeg");
+        MauriceBad = assetBundle.LoadAsset<GameObject>("assets/mauricebad.prefab");
     }
 
     /// <summary> Grabs the embedded asset bundle. </summary>
