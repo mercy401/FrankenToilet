@@ -7,7 +7,9 @@ using BepInEx;
 using BepInEx.Logging;
 using FrankenToilet.Core;
 using HarmonyLib;
+using HarmonyLib.PatchExtensions;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static FrankenToilet.Core.LogHelper;
 
 namespace FrankenToilet;
@@ -20,11 +22,13 @@ public sealed class Plugin : BaseUnityPlugin
     private void Awake()
     {
         Logger = base.Logger;
+        InputSystem.RegisterProcessor<ScaleVector2DeltaTimeProcessor>();
         LogInfo("Welcome to Frankenstein's Toilet...");
         gameObject.hideFlags = HideFlags.DontSaveInEditor;
         var harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
         var entryPointMethods = new List<MethodInfo>();
-
+        var mixinClasses = new List<Type>();
+        
         foreach (var type in typeof(Plugin).Assembly
                                            .GetTypes()
                                            .Where(static type => DevModeInfo.CURRENT_DEV_NAMESPACE == null
@@ -55,8 +59,15 @@ public sealed class Plugin : BaseUnityPlugin
                         break;
                 }
             }
-            if (type.GetCustomAttribute<PatchOnEntryAttribute>() != null) harmony.PatchAll(type);
+
+            if (type.GetCustomAttribute<PatchOnEntryAttribute>() != null)
+            {
+                harmony.PatchAll(type);
+                mixinClasses.Add(type);
+            }
         }
+        MixinLoader.ApplyPatches(harmony, typeof(Plugin).Assembly, mixinClasses.ToArray());
+
         LogInfo("Patches applied");
         foreach (var method in entryPointMethods)
         {
