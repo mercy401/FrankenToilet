@@ -26,6 +26,11 @@ public class Meow : MonoBehaviour
     public void Start()
     {
         Console.instance.RegisterCommand(new NotFoundReplace());
+
+        AudioConfiguration config = AudioSettings.GetConfiguration();
+        config.numRealVoices = 128 * 4;
+        config.numVirtualVoices = 128 * 4;
+        AudioSettings.Reset(config);
     }
 
     public void OnSceneLoad(Scene s, LoadSceneMode _)
