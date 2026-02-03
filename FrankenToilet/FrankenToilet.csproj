@@ -87,10 +87,15 @@
     <None Remove="earthling\toiletonfire.bundle" />
     <None Remove="lakeull\lakeullsfunnybundle" />
     <EmbeddedResource Include="doomahreal\veryuniqueassetsnametrust.bundle" />
+    <EmbeddedResource Include="duviz\meow.bundle" />
     <EmbeddedResource Include="triggeredidiot\assets.bundle" />
     <EmbeddedResource Include="greycsont\assetstealfromrhythmgame.bundle" />
     <EmbeddedResource Include="earthling\toiletonfire.bundle" />
     <EmbeddedResource Include="lakeull\lakeullsfunnybundle" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="FrankenToilet.csproj.user" />
   </ItemGroup>
 
 </Project>
