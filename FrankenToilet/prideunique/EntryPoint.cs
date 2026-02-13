@@ -17,7 +17,7 @@ public static class EntryPoint
 
         SceneManager.sceneLoaded += (scene, lcm) =>
         {
-            if (SceneHelper.CurrentScene == "Intro")
+            if (SceneHelper.LastScene == "Bootstrap")
             {
                 AudioClipsAddressableLoader.LoadSoundAndMusicAddressables();
             }
