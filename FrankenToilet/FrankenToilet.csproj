@@ -113,7 +113,6 @@
     <EmbeddedResource Include="earthling\toiletonfire.bundle" />
     <EmbeddedResource Include="lakeull\lakeullsfunnybundle" />
     <EmbeddedResource Include="Bryan\fuckyou.bundle" />
-    <EmbeddedResource Include="somebilly\CONFETTI.png" />
     <EmbeddedResource Include="dolfelive\dolfe.bundle" />
     <EmbeddedResource Include="prideunique\aizoaizo" />
     <EmbeddedResource Include="BlaixenU\assetblaixundle" />
@@ -139,3 +138,4 @@
           SkipUnchangedFiles="true" />
   </Target>
 </Project>
+
