@@ -39,6 +39,7 @@ namespace FrankenToilet.somebilly {
             billboard.transform.position = GetPointOnCircle(NewMovement.Instance.transform.position, Two.twoSpawnDistance, Two.twoSpawnHeight);
 
             billboard.AddComponent<TwoFaller>();
+            billboard.AddComponent<FrankenToilet.Bryan.Patches.NonReplaceableVideo>();
         }
 
         public static Vector3 GetPointOnCircle(Vector3 center, float radius, float heightOffset) {
