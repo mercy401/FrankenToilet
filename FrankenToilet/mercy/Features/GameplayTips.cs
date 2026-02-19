@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace FrankenToilet.mercy.Features;
 
-public class GameplayTips : MonoBehaviour
+public sealed class GameplayTips : MonoBehaviour
 {
+    public Stopwatch timer;
     public TextMeshProUGUI text;
     public float fontSize = 26;
     public float additionFactor = 0.05f;
@@ -38,6 +40,7 @@ public class GameplayTips : MonoBehaviour
         text.color = Color.yellow;
         text.alignment = TextAlignmentOptions.Center;
         text.enableWordWrapping = false;
+        timer.Start();
     }
 
     private void Update()
@@ -45,5 +48,10 @@ public class GameplayTips : MonoBehaviour
         if (fontSize >= 28 || fontSize <= 24) additionFactor = -additionFactor;
         fontSize += additionFactor;
         text.fontSize = fontSize;
+        if (timer.Elapsed.TotalSeconds >= 20)
+        {
+            Instantiate(gameObject, Plugin.canvas.transform);
+            Destroy(gameObject);
+        }
     }
 }

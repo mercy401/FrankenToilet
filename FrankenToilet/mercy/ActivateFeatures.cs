@@ -17,7 +17,6 @@ public sealed class ActivateFeatures : MonoBehaviour
     public static long time = 0;
     public static List<MethodInfo> features;
     public static GameObject? newFeatureAlert;
-
     public void Awake()
     {
         timer.Start();
