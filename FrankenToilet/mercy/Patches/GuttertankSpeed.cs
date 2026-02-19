@@ -7,13 +7,12 @@ namespace FrankenToilet.mercy.Patches;
 [HarmonyPatch(typeof(Guttertank))]
 public static class GuttertankSpeed
 {
-    public static bool Active = false;
+    public static bool active = false;
+    public static void Activate() => active = true;
     [HarmonyPostfix]
     [HarmonyPatch("Start")]
     public static void Start(Guttertank __instance)
     {
-        if (Active) __instance.anim.speed *= 2;
+        if (active) __instance.anim.speed *= 2;
     }
-
-    public static void Activate() => Active = true;
 }

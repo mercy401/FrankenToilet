@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using FrankenToilet.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace FrankenToilet.mercy;
 
@@ -15,6 +17,7 @@ public static class Helper {
         if (stream == null) return null;
         return AssetBundle.LoadFromStream(stream);
     }
+    
     public static Sprite[]? LoadFrames(AssetBundle? assetBundle, string path, int frames)
     {
         AssetBundle? bundle = Plugin.assetBundle;
@@ -28,7 +31,6 @@ public static class Helper {
         for (int i = 1; i <= frames; i++)
         {
             string filePath = $"Assets/Features/{path}/{i.ToString()}.png";
-            LogHelper.LogInfo(filePath);
             Sprite? currentSprite = bundle.LoadAsset<Sprite>(filePath);
             if (currentSprite == null)
             {
@@ -45,5 +47,26 @@ public static class Helper {
         foreach (GameObject go in gameObjects) 
             if (go.GetComponent<Canvas>() != null) return go;
         return null;
+    }
+
+    public static void Animate(ref Image image, Sprite[]? frames, Stopwatch frameTimer, ref int index, int frameCount, double delay)
+    {
+        if (frames == null) return;
+        // ANIMATION
+        if (frameTimer.Elapsed.TotalSeconds >= delay)
+        {
+            image.sprite = frames[index];
+            if (index < frameCount-1) ++index;
+            else index = 0;
+            frameTimer.Restart();
+        }
+    }
+
+    public static void CreateImage<T>(string name, int width, int height) where T : MonoBehaviour
+    {
+        GameObject imageObj = GameObject.Instantiate(new GameObject(name), Plugin.canvas.transform);
+        imageObj.AddComponent<T>();
+        RectTransform rectTransform = imageObj.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(width, height);
     }
 }

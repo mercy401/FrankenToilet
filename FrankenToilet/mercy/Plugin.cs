@@ -14,6 +14,7 @@ public static class Plugin
     public static AssetBundle? assetBundle;
     public static Random rand = new();
     public static GameObject? manager;
+    public static GameObject? canvas;
     [EntryPoint]
     public static void Entry()
     {

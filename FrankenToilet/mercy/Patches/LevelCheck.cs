@@ -13,6 +13,7 @@ public static class LevelCheck
     [HarmonyPatch("OnSceneLoaded")]
     [HarmonyPostfix]
     public static void SceneCheck() {
+        Plugin.canvas = Helper.GetRootCanvas();
         // ACTIVATE OUR FEATURES,,,
         if (!blacklistedScenes.Contains(SceneHelper.CurrentScene))
         {

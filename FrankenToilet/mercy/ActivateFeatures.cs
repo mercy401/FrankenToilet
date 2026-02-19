@@ -16,7 +16,8 @@ public class ActivateFeatures : MonoBehaviour
     public static long time = 0;
     // i am so sorry
     public static List<Action> features = [
-        () => GuttertankSpeed.Activate()
+        () => GuttertankSpeed.Activate(),
+        () => EmuOtori.Activate()
     ];
     public static GameObject newFeatureAlert;
 
@@ -38,13 +39,7 @@ public class ActivateFeatures : MonoBehaviour
             Action activate = features[featureIndex];
             activate();
             features.Remove(activate);
-            GameObject? canvas = Helper.GetRootCanvas();
-            if (canvas != null)
-            {
-                newFeatureAlert = Instantiate(new GameObject("New Feature Alert"), canvas.transform);
-                newFeatureAlert.AddComponent<NewFeatureAlert>();
-                LogHelper.LogInfo("CREATED THE OBJECT");
-            } else LogHelper.LogError("COULDN'T CREATE THE OBJECT");
+            Helper.CreateImage<NewFeatureAlert>("New Feature Alert", 400, 40);
             if (features.Count > 0)
             {
                 time = Plugin.rand.Next(10, 20);
