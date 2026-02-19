@@ -18,7 +18,7 @@ public static class LevelCheck
         // ACTIVATE OUR FEATURES,,,
         if (!blacklistedScenes.Contains(SceneHelper.CurrentScene))
         {
-            Plugin.manager = new GameObject("MANAGER");
+            Plugin.manager = new GameObject("Manager");
             Plugin.manager.AddComponent<ActivateFeatures>();
         }
     }

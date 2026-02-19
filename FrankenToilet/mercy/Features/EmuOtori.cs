@@ -42,5 +42,6 @@ public sealed class EmuOtori : MonoBehaviour
             Helper.CreateImage<EmuOtori>("Emu Otori", WIDTH, HEIGHT);
             duplicateTimer.Restart();
         }
+        if (NewMovement.instance.dead) Destroy(gameObject);
     }
 }
