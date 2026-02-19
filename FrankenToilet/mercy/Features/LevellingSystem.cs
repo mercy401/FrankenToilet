@@ -10,6 +10,7 @@ public sealed class LevellingSystem : MonoBehaviour
 {
     public static int level = 1;
     public static int experience = 0;
+    [MercyFeature]
     public static void Activate()
     {
         GameObject gameObject = Instantiate(

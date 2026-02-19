@@ -18,7 +18,7 @@ public sealed class QuickTimeChallengeManager : MonoBehaviour
     {
         if (stopwatch.Elapsed.TotalSeconds >= 1)
         {
-            if (Plugin.rand.Next(1, 30) == 1 && !Plugin.canvas.GetComponent<QuickTimeChallenge>()) 
+            if (Plugin.rand.Next(1, 120) == 1 && !Plugin.canvas.GetComponent<QuickTimeChallenge>()) 
                 QuickTimeChallenge.Activate();
             stopwatch.Restart();
         }
