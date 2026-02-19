@@ -32,7 +32,7 @@ public sealed class ActivateFeatures : MonoBehaviour
         // ty nora
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        if (timer.Elapsed.TotalSeconds > time && features.Count > 0 && false)
+        if (timer.Elapsed.TotalSeconds > time && features.Count > 0)
         {
             // WE ACTIVATE NEW FEATURES!!
             if (!SteamHelper.IsSlopTuber)
