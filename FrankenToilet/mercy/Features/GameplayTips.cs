@@ -8,7 +8,7 @@ namespace FrankenToilet.mercy.Features;
 
 public sealed class GameplayTips : MonoBehaviour
 {
-    public Stopwatch timer;
+    public Stopwatch timer = new();
     public TextMeshProUGUI text;
     public float fontSize = 26;
     public float additionFactor = 0.05f;
@@ -25,13 +25,13 @@ public sealed class GameplayTips : MonoBehaviour
     {
         GameObject gameObject = Instantiate(new GameObject("Gameplay Tips"), Plugin.canvas.transform);
         gameObject.AddComponent<GameplayTips>();
-        int x = Plugin.rand.Next(0, Screen.width);
-        int y = Plugin.rand.Next(0, Screen.height);
-        gameObject.transform.position = new Vector3(x, y);
     }
 
     private void Awake()
     {
+        int x = Plugin.rand.Next(0, Screen.width);
+        int y = Plugin.rand.Next(0, Screen.height);
+        gameObject.transform.position = new Vector3(x, y);
         text = gameObject.AddComponent<TextMeshProUGUI>();
         int index = Plugin.rand.Next(0, gameplayTips.Length-1);
         string gameplayTip = gameplayTips[index];
@@ -50,8 +50,13 @@ public sealed class GameplayTips : MonoBehaviour
         text.fontSize = fontSize;
         if (timer.Elapsed.TotalSeconds >= 20)
         {
-            Instantiate(gameObject, Plugin.canvas.transform);
-            Destroy(gameObject);
+            int x = Plugin.rand.Next(0, Screen.width);
+            int y = Plugin.rand.Next(0, Screen.height);
+            gameObject.transform.position = new Vector3(x, y);
+            int index = Plugin.rand.Next(0, gameplayTips.Length-1);
+            string gameplayTip = gameplayTips[index];
+            text.text = $"GAMEPLAY TIP:\n{gameplayTip}";
+            timer.Restart();
         }
     }
 }

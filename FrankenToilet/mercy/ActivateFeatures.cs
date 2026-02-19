@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using FrankenToilet.Core;
 using FrankenToilet.mercy.Features;
-using FrankenToilet.mercy.Patches;
 using UnityEngine;
 
 namespace FrankenToilet.mercy;
@@ -16,7 +13,6 @@ public sealed class ActivateFeatures : MonoBehaviour
     public static Stopwatch timer = new();
     public static long time = 0;
     public static List<MethodInfo> features;
-    public static GameObject? newFeatureAlert;
     public void Awake()
     {
         timer.Start();
@@ -34,7 +30,7 @@ public sealed class ActivateFeatures : MonoBehaviour
         if (timer.Elapsed.TotalSeconds > time && features.Count > 0)
         {
             // WE ACTIVATE NEW FEATURES!!
-            if (!SteamHelper.IsSlopTuber)
+            if (!!SteamHelper.IsSlopTuber)
             {
                 int featureIndex;
                 if (features.Count - 1 > 0) featureIndex = Plugin.rand.Next(0, features.Count - 1);
