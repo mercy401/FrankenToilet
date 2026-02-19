@@ -6,33 +6,29 @@ using UnityEngine.UI;
 
 namespace FrankenToilet.mercy.Features;
 
-public class EmuOtori : MonoBehaviour
+public sealed class EmuOtori : MonoBehaviour
 {
     public Sprite[]? frames;
     public Stopwatch frameTimer = new();
     public Stopwatch duplicateTimer = new();
     public int index = 0;
-    public Image image;
+    public Image? image;
     public const int FRAMECOUNT = 22;
     public const int WIDTH = 253;
     public const int HEIGHT = 332;
 
-    public static void Activate()
-    {
-        Helper.CreateImage<EmuOtori>("Emu Otori", WIDTH, HEIGHT);
-    }
-    
+    [MercyFeature]
+    public static void Activate() => Helper.CreateImage<EmuOtori>("Emu Otori", WIDTH, HEIGHT);
     private void Awake()
     {
         frames = Helper.LoadFrames(Plugin.assetBundle, "EmuOtori", FRAMECOUNT);
-        image = gameObject.GetOrAddComponent<Image>();
+        image = gameObject.AddComponent<Image>();
         frameTimer.Start();
         duplicateTimer.Start();
     }
 
     private void Update()
     {
-        
         Helper.Animate(ref image, frames, frameTimer, ref index, FRAMECOUNT, 0.01);
         if (index == 0)
         {

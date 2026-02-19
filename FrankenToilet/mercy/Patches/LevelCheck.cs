@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using FrankenToilet.Core;
 using HarmonyLib;
+using TMPro;
 using UnityEngine;
 
 namespace FrankenToilet.mercy.Patches;

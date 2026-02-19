@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 namespace FrankenToilet.mercy.Features;
 
-public class NewFeatureAlert : MonoBehaviour
+public sealed class NewFeatureAlert : MonoBehaviour
 {
     public Sprite[]? frames;
     public Stopwatch deathTimer = new();
     public Stopwatch frameTimer = new();
     public int index = 0;
-    public Image image;
+    public Image? image;
     public const int FRAMECOUNT = 11;
 
     private void Awake()
     {
         frames = Helper.LoadFrames(Plugin.assetBundle, "NewFeatureAlert", FRAMECOUNT);
-        image = gameObject.GetOrAddComponent<Image>();
+        image = gameObject.AddComponent<Image>();
         deathTimer.Start();
         frameTimer.Start();
     }

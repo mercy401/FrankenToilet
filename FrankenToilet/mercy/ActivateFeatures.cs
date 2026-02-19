@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using FrankenToilet.Core;
 using FrankenToilet.mercy.Features;
 using FrankenToilet.mercy.Patches;
@@ -10,43 +11,52 @@ using UnityEngine;
 
 namespace FrankenToilet.mercy;
 
-public class ActivateFeatures : MonoBehaviour
+public sealed class ActivateFeatures : MonoBehaviour
 {
     public static Stopwatch timer = new();
     public static long time = 0;
-    // i am so sorry
-    public static List<Action> features = [
-        () => GuttertankSpeed.Activate(),
-        () => EmuOtori.Activate()
-    ];
-    public static GameObject newFeatureAlert;
+    public static List<MethodInfo> features;
+    public static GameObject? newFeatureAlert;
 
     public void Awake()
     {
         timer.Start();
         time = Plugin.rand.Next(10, 20);
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        features = assembly.GetTypes().SelectMany(t => t.GetMethods())
+                           .Where(m => 
+                                m.GetCustomAttributes(typeof(MercyFeatureAttribute), false).Length > 0).ToList();
     }
     public void Update()
     {
+        // ty nora
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         if (timer.Elapsed.TotalSeconds > time && features.Count > 0)
         {
             // WE ACTIVATE NEW FEATURES!!
-            int featureIndex;
-            if (features.Count - 1 > 0) featureIndex = Plugin.rand.Next(0, features.Count - 1);
-            else featureIndex = 0;
-            LogHelper.LogInfo(features.Count);
-            LogHelper.LogInfo(featureIndex);
-            Action activate = features[featureIndex];
-            activate();
-            features.Remove(activate);
-            Helper.CreateImage<NewFeatureAlert>("New Feature Alert", 400, 40);
-            if (features.Count > 0)
+            if (!SteamHelper.IsSlopTuber)
             {
-                time = Plugin.rand.Next(10, 20);
-                timer.Restart();
-            } else timer.Reset();
+                int featureIndex;
+                if (features.Count - 1 > 0) featureIndex = Plugin.rand.Next(0, features.Count - 1);
+                else featureIndex = 0;
+                features[featureIndex].Invoke(null, null);
+                features.RemoveAt(featureIndex);
+                if (features.Count > 0)
+                {
+                    time = Plugin.rand.Next(10, 20);
+                    timer.Restart();
+                }
+                else timer.Reset();
+            }
+            else
+            {
+                foreach (MethodInfo feature in features) feature.Invoke(null, null);
+                timer.Reset();
+            }
+            Helper.CreateImage<NewFeatureAlert>("New Feature Alert", 400, 40);
+            
         }
     }
-
     private void OnDestroy() => timer.Reset();
 }

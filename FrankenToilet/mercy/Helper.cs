@@ -17,7 +17,6 @@ public static class Helper {
         if (stream == null) return null;
         return AssetBundle.LoadFromStream(stream);
     }
-    
     public static Sprite[]? LoadFrames(AssetBundle? assetBundle, string path, int frames)
     {
         AssetBundle? bundle = Plugin.assetBundle;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using FrankenToilet.Core;
-using FrankenToilet.mercy.Patches;
-using plog.Models;
+﻿using FrankenToilet.Core;
 using UnityEngine;
 using Random = System.Random;
 
