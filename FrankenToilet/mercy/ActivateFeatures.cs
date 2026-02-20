@@ -12,12 +12,13 @@ public sealed class ActivateFeatures : MonoBehaviour
 {
     public static Stopwatch timer = new();
     public static long time = 0;
-    public static List<MethodInfo> features;
+    public static List<MethodInfo> features = new();
     public void Awake()
     {
         timer.Start();
         time = Plugin.rand.Next(10, 20);
         Assembly assembly = Assembly.GetExecutingAssembly();
+        // getting the list of methods with the [MercyFeature] attribute
         features = assembly.GetTypes().SelectMany(t => t.GetMethods())
                            .Where(m => 
                                 m.GetCustomAttributes(typeof(MercyFeatureAttribute), false).Length > 0).ToList();
@@ -29,7 +30,6 @@ public sealed class ActivateFeatures : MonoBehaviour
         Cursor.visible = true;
         if (timer.Elapsed.TotalSeconds > time && features.Count > 0)
         {
-            // WE ACTIVATE NEW FEATURES!!
             if (!SteamHelper.IsSlopTuber)
             {
                 int featureIndex;

@@ -12,6 +12,7 @@ namespace FrankenToilet.mercy.Patches;
 [HarmonyPatch(typeof(EnemyIdentifier))]
 public static class LevelingPatches
 {
+    // please someone tell me that there's a better way of doing this
     public static EnemyType[] strongEnemies = [
         EnemyType.BigJohnator, EnemyType.Cerberus, EnemyType.HideousMass, EnemyType.MaliciousFace, EnemyType.Mindflayer,
         EnemyType.Swordsmachine, EnemyType.Virtue, EnemyType.Turret, EnemyType.Idol, EnemyType.VeryCancerousRodent,

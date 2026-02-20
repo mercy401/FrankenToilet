@@ -27,15 +27,20 @@ public sealed class GameplayTips : MonoBehaviour
         gameObject.AddComponent<GameplayTips>();
     }
 
-    private void Awake()
+    private void GenerateGameplayTip()
     {
         int x = Plugin.rand.Next(0, Screen.width);
         int y = Plugin.rand.Next(0, Screen.height);
         gameObject.transform.position = new Vector3(x, y);
-        text = gameObject.AddComponent<TextMeshProUGUI>();
         int index = Plugin.rand.Next(0, gameplayTips.Length-1);
         string gameplayTip = gameplayTips[index];
         text.text = $"GAMEPLAY TIP:\n{gameplayTip}";
+    }
+    
+    private void Awake()
+    {
+        text = gameObject.AddComponent<TextMeshProUGUI>();
+        GenerateGameplayTip();
         text.fontSize = fontSize;
         text.color = Color.yellow;
         text.alignment = TextAlignmentOptions.Center;
@@ -50,12 +55,7 @@ public sealed class GameplayTips : MonoBehaviour
         text.fontSize = fontSize;
         if (timer.Elapsed.TotalSeconds >= 20)
         {
-            int x = Plugin.rand.Next(0, Screen.width);
-            int y = Plugin.rand.Next(0, Screen.height);
-            gameObject.transform.position = new Vector3(x, y);
-            int index = Plugin.rand.Next(0, gameplayTips.Length-1);
-            string gameplayTip = gameplayTips[index];
-            text.text = $"GAMEPLAY TIP:\n{gameplayTip}";
+            GenerateGameplayTip();
             timer.Restart();
         }
     }

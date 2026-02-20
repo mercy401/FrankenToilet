@@ -3,6 +3,7 @@ using FrankenToilet.Core;
 using HarmonyLib;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FrankenToilet.mercy.Patches;
 
@@ -14,7 +15,9 @@ public static class LevelCheck
     [HarmonyPatch("OnSceneLoaded")]
     [HarmonyPostfix]
     public static void SceneCheck() {
-        Plugin.canvas = Helper.GetRootCanvas();
+        GameObject[] gameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (GameObject go in gameObjects)
+            if (go.GetComponent<Canvas>() != null) Plugin.canvas = go;
         // ACTIVATE OUR FEATURES,,,
         if (!blacklistedScenes.Contains(SceneHelper.CurrentScene))
         {
