@@ -33,8 +33,8 @@ public sealed class GameplayTips : MonoBehaviour
         int y = Plugin.rand.Next(0, Screen.height);
         gameObject.transform.position = new Vector3(x, y);
         int index = Plugin.rand.Next(0, gameplayTips.Length-1);
-        string gameplayTip = gameplayTips[index];
-        text.text = $"GAMEPLAY TIP:\n{gameplayTip}";
+        string gameplayTip = $"GAMEPLAY TIP:\n{gameplayTips[index]}";
+        text.SetCharArray(gameplayTip.ToCharArray());
     }
     
     private void Awake()
