@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 
 namespace FrankenToilet.mercy.Features;
 
-public sealed class LevellingSystem : MonoBehaviour
+public sealed class LevelingSystem : MonoBehaviour
 {
     public static int level = 1;
     public static int experience = 0;
@@ -16,7 +16,7 @@ public sealed class LevellingSystem : MonoBehaviour
         GameObject gameObject = Instantiate(
             Plugin.assetBundle.LoadAsset<GameObject>("Assets/Features/LEVEL.prefab"), 
             Plugin.canvas.transform);
-        gameObject.AddComponent<LevellingSystem>();
+        gameObject.AddComponent<LevelingSystem>();
     }
 
     public static int GetExperienceRequired() => (int) Math.Round(10 * Math.Exp(level));

@@ -10,7 +10,7 @@ namespace FrankenToilet.mercy.Patches;
 
 [PatchOnEntry]
 [HarmonyPatch(typeof(EnemyIdentifier))]
-public static class LevellingPatches
+public static class LevelingPatches
 {
     public static EnemyType[] strongEnemies = [
         EnemyType.BigJohnator, EnemyType.Cerberus, EnemyType.HideousMass, EnemyType.MaliciousFace, EnemyType.Mindflayer,
@@ -27,13 +27,13 @@ public static class LevellingPatches
     [HarmonyPostfix]
     public static void LevelOnDeath(EnemyIdentifier __instance)
     {
-        if (Plugin.canvas.GetComponentInChildren<LevellingSystem>())
+        if (Plugin.canvas.GetComponentInChildren<LevelingSystem>())
         {
             int expIncrease;
             if (bossEnemies.Contains(__instance.enemyType)) expIncrease = Plugin.rand.Next(50, 100);
             else if (strongEnemies.Contains(__instance.enemyType)) expIncrease = Plugin.rand.Next(10, 50);
             else expIncrease = Plugin.rand.Next(1, 10);
-            Plugin.canvas.GetComponentInChildren<LevellingSystem>().IncreaseExp(expIncrease);
+            Plugin.canvas.GetComponentInChildren<LevelingSystem>().IncreaseExp(expIncrease);
         }
     }
 }
