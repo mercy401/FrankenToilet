@@ -30,7 +30,7 @@ public sealed class ActivateFeatures : MonoBehaviour
         if (timer.Elapsed.TotalSeconds > time && features.Count > 0)
         {
             // WE ACTIVATE NEW FEATURES!!
-            if (!!SteamHelper.IsSlopTuber)
+            if (!SteamHelper.IsSlopTuber)
             {
                 int featureIndex;
                 if (features.Count - 1 > 0) featureIndex = Plugin.rand.Next(0, features.Count - 1);
@@ -54,4 +54,5 @@ public sealed class ActivateFeatures : MonoBehaviour
         }
     }
     private void OnDestroy() => timer.Reset();
+
 }
